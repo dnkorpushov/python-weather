@@ -8,8 +8,8 @@ IPINFO_URL = 'https://ipinfo.io/json'
 
 class Coordinates(NamedTuple):
     """Class for GPS Coordinates"""
-    latitude: float = None
-    longitude: float = None
+    latitude: float
+    longitude: float
 
 
 def get_gps_coordinates() -> Coordinates:
