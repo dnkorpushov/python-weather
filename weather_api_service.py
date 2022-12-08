@@ -18,6 +18,7 @@ OPENWEATHER_API_URL = (
 
 Celsius = int
 
+
 class WeatherType(Enum):
     """Enum for weather type"""
     THUNDERSTORM = "Гроза"
@@ -68,10 +69,11 @@ def _parse_weather(weather_data: dict) -> Weather:
     return Weather(
         city=weather_data["name"],
         temperature=Celsius(weather_data["main"]["temp"]),
-        weather_type=_parse_weather_type(str(weather_data["weather"][0]["id"])),
+        weather_type=_parse_weather_type(
+            str(weather_data["weather"][0]["id"])),
         feels_like=Celsius(weather_data["main"]["feels_like"]),
         sunrise=datetime.fromtimestamp(weather_data["sys"]["sunrise"]),
-        sunset=datetime.fromtimestamp(weather_data["sys"]["sunset"])        
+        sunset=datetime.fromtimestamp(weather_data["sys"]["sunset"])
     )
 
 

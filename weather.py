@@ -1,8 +1,8 @@
-"""Weather app"""
 from gps_coordinates import get_gps_coordinates
 from weather_api_service import get_weather
 from weather_formatter import format_weather
 from exceptions import DontGetCoordinates, DontGetWeather
+
 
 def main():
     """Main app func"""

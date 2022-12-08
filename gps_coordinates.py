@@ -1,4 +1,3 @@
-"""Get GPS coordinates by your computer's ip-address"""
 from typing import NamedTuple
 import requests
 from exceptions import DontGetCoordinates
@@ -7,13 +6,12 @@ IPINFO_URL = 'https://ipinfo.io/json'
 
 
 class Coordinates(NamedTuple):
-    """Class for GPS Coordinates"""
     latitude: float
     longitude: float
 
 
 def get_gps_coordinates() -> Coordinates:
-    """Returns GPS coordinates by computer's ip"""
+    """Returns GPS coordinates by computer's ip-address"""
     location_info = _get_location_info_by_ip()
     coordinates = _parse_coordinates(location_info)
     return coordinates

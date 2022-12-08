@@ -1,4 +1,3 @@
-"""Format Weather class to string"""
 from datetime import datetime
 from weather_api_service import Weather, WeatherType
 
