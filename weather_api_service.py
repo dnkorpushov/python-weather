@@ -1,7 +1,9 @@
-import requests
+"""Get weather from web-service"""
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
+import requests
+
 from gps_coordinates import Coordinates
 from exceptions import DontGetWeather
 
@@ -17,7 +19,8 @@ OPENWEATHER_API_URL = (
 Celsius = int
 
 class WeatherType(Enum):
-    THUNDERSTORM = "Гроза" 
+    """Enum for weather type"""
+    THUNDERSTORM = "Гроза"
     DRIZZLE = "Изморозь"
     RAIN = "Дождь"
     SNOW = "Снег"
@@ -28,6 +31,7 @@ class WeatherType(Enum):
 
 @dataclass
 class Weather:
+    """Weather dataclass"""
     city: str
     temperature: Celsius
     feels_like: Celsius
@@ -41,8 +45,8 @@ def get_weather(coordinates: Coordinates) -> Weather:
     weater_data = _get_weather_data(coordinates)
     try:
         weather = _parse_weather(weater_data)
-    except Exception:
-        raise DontGetWeather
+    except Exception as exc:
+        raise DontGetWeather from exc
     return weather
 
 
@@ -50,8 +54,9 @@ def _get_weather_data(coordinates: Coordinates) -> dict:
     response = requests.get(
         OPENWEATHER_API_URL.format(
             latitude=coordinates.latitude,
-            longitude=coordinates.longitude
-        )
+            longitude=coordinates.longitude,
+        ),
+        timeout=200
     )
     if response.status_code == 200:
         return response.json()
@@ -70,7 +75,7 @@ def _parse_weather(weather_data: dict) -> Weather:
     )
 
 
-def _parse_weather_type(weather_type_id: str) -> WeatherType: 
+def _parse_weather_type(weather_type_id: str) -> WeatherType:
     weather_type = {
         "2": WeatherType.THUNDERSTORM,
         "3": WeatherType.DRIZZLE,
@@ -80,10 +85,11 @@ def _parse_weather_type(weather_type_id: str) -> WeatherType:
         "800": WeatherType.CLEAR,
         "80": WeatherType.CLOUDS
     }
-    
-    for key in weather_type.keys():
-        if weather_type_id.startswith(key):
-            return weather_type[key]
+
+    for weather_key, weather_type in weather_type.items():
+        if weather_type_id.startswith(weather_key):
+            return weather_type
+
     raise DontGetWeather
 
 

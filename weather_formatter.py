@@ -1,8 +1,10 @@
+"""Format Weather class to string"""
 from datetime import datetime
 from weather_api_service import Weather, WeatherType
 
 
 def format_weather(weather: Weather) -> str:
+    """Returns formatted string from Weather class"""
     return (
         f"{weather.city}:\n"
         f"    температура {weather.temperature} °C, "

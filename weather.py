@@ -1,9 +1,11 @@
+"""Weather app"""
 from gps_coordinates import get_gps_coordinates
 from weather_api_service import get_weather
 from weather_formatter import format_weather
 from exceptions import DontGetCoordinates, DontGetWeather
 
 def main():
+    """Main app func"""
     try:
         coordinates = get_gps_coordinates()
         weather = get_weather(coordinates)
@@ -16,4 +18,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
