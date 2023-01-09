@@ -8,7 +8,7 @@ from gps_coordinates import Coordinates
 from exceptions import DontGetWeather
 
 
-API_KEY = "34b27032a85a4c08ce8b2c50176b58a1"
+API_KEY = "YOUR_OPENWEATHER_API_KEY"
 OPENWEATHER_API_URL = (
     "https://api.openweathermap.org/data/2.5/weather?"
     "lat={latitude}&lon={longitude}&"
